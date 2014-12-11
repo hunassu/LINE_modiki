@@ -70,10 +70,15 @@ void communication(int connect_s)
 {
 	int nRcv;
 	char szBuf[1024];
+	char userName[1024];
+
+	printf("ユーザー名を入力してください\n");
+	scanf( "%s" , userName );
+	send( connect_s , userName , (int)strlen(userName) , 0 );
 	
 	while( 1 ) {
 		//送信の処理
-		printf( "送信--" );
+		printf( "%s--" ,userName );
 		scanf( "%s" , szBuf );
 		if( strcmp( szBuf , "c_end" ) == 0 ){
 			send( connect_s , szBuf , (int)strlen(szBuf) , 0 );

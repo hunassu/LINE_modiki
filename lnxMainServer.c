@@ -99,6 +99,13 @@ void communication( int s )
 {
 	int nRcv;
 	char szBuf[1024];
+	char myUserName[1024];
+	char userName[1024];
+
+	printf("ユーザー名を入力してください\n");
+	scanf( "%s" , myUserName );
+
+	nRcv = recv( s , userName , sizeof( userName ) , 0 );
 	
 	while( 1 ){
 		//受信処理
@@ -114,10 +121,10 @@ void communication( int s )
 			printf( "クライアントが接続を切りました\n" );
 			break;
 		}
-		printf("受信--%s\n" , szBuf );
+		printf("%s--%s\n" , userName , szBuf );
 
 		//送信処理
-		printf("送信--");
+		printf("%s--" , myUserName );
 		scanf( "%s" , szBuf );
 		if( strcmp( szBuf , "s_end" ) == 0 ){
 			send( s , szBuf , (int)strlen(szBuf) , 0 );
@@ -159,7 +166,5 @@ void* thread1( void* hs )
 //クライアントととの会話
 void* thread2( void* ls )
 {
-	printf("aaa\n");
-	printf("%d\n" ,*(int*)ls);
 	communication( *(int*)ls );
 }
