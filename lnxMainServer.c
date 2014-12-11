@@ -14,7 +14,7 @@ int connectClient( int );
 void communication( int );
 
 void* thread1( void* hs );
-void* thread2( void* hs );
+void* thread2( void* ls );
 
 int main()
 {
@@ -149,17 +149,17 @@ void* thread1( void* hs )
 		//エラー処理
 		if( s < 0 ){
 		}else{
-			pthread_create( &th[i] , NULL , thread2 , (void *)&s );
+			pthread_create( &th[i] , NULL , thread2 ,(void *)&s );
 			printf("threadID=%d\n" , th[i]);
 			i++;
 		}
-		//受付用のソケットを削除
-		close( s );
 	}
 }
 
 //クライアントととの会話
 void* thread2( void* ls )
 {
-	communication( (int*)ls );
+	printf("aaa\n");
+	printf("%d\n" ,*(int*)ls);
+	communication( *(int*)ls );
 }
