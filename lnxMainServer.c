@@ -149,7 +149,7 @@ void* thread1( void* hs )
 		//エラー処理
 		if( s < 0 ){
 		}else{
-			pthread_create( &th[i] , NULL , thread2 , (void *)NULL );
+			pthread_create( &th[i] , NULL , thread2 , (void *)&s );
 			printf("threadID=%d\n" , th[i]);
 			i++;
 		}
@@ -161,5 +161,5 @@ void* thread1( void* hs )
 //クライアントととの会話
 void* thread2( void* ls )
 {
-	printf("来た\n");
+	communication( (int*)ls );
 }
